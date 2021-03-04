@@ -152,6 +152,7 @@ class YoungGCTracer : public GCTracer {
                                           size_t plab_size) const;
   void report_promotion_outside_plab_event(Klass* klass, size_t obj_size,
                                            uint age, bool tenured) const;
+  void report_survivor_overflow_event(size_t survived, size_t promoted, bool is_survivor_overflow) const;
 
  private:
   void send_young_gc_event() const;
@@ -163,6 +164,7 @@ class YoungGCTracer : public GCTracer {
                                         size_t plab_size) const;
   void send_promotion_outside_plab_event(Klass* klass, size_t obj_size,
                                          uint age, bool tenured) const;
+  void send_survivor_overflow_event(size_t survived, size_t promoted, bool is_survivor_overflow) const;
 };
 
 class OldGCTracer : public GCTracer {

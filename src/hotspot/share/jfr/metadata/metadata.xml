@@ -418,6 +418,16 @@
     <Field type="Thread" name="thread" label="Running thread" />
   </Event>
 
+  <Event name="SurvivorOverflow
+  " category="Java Virtual Machine, GC, Detailed" label="Survivor space overflow"
+    description="xxx."
+    thread="true" stackTrace="false" startTime="false">
+    <Field type="uint" name="gcId" label="GC Identifier" relation="GcId" description="Identifier signifying GC during which the object was promoted" />
+    <Field type="ulong" contentType="bytes" name="survived" label="Sum of Survived" description="Sum of survived objects size" />
+    <Field type="ulong" contentType="bytes" name="promoted" label="Sum of Promoted" description="Sum of promoted object size" />
+    <Field type="boolean" name="overflowed" label="Overflowed" description="True if a Survivor space is overflowed." />
+  </Event>
+
   <Event name="EvacuationFailed" category="Java Virtual Machine, GC, Detailed" label="Evacuation Failed" startTime="false" description="Evacuation of an object failed">
     <Field type="uint" name="gcId" label="GC Identifier" relation="GcId" />
     <Field type="CopyFailed" struct="true" name="evacuationFailed" label="Evacuation Failed Data" />

@@ -553,6 +553,7 @@ bool PSScavenge::invoke_no_policy() {
       size_t survived = young_gen->from_space()->used_in_bytes();
       size_t promoted = old_gen->used_in_bytes() - pre_gc_values.old_gen_used();
       size_policy->update_averages(_survivor_overflow, survived, promoted);
+      _gc_tracer.report_survivor_overflow_event(survived, promoted, _survivor_overflow);
 
       // A successful scavenge should restart the GC time limit count which is
       // for full GC's.

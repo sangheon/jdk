@@ -163,6 +163,10 @@ void YoungGCTracer::report_promotion_outside_plab_event(Klass* klass, size_t obj
   send_promotion_outside_plab_event(klass, obj_size, age, tenured);
 }
 
+void YoungGCTracer::report_survivor_overflow_event(size_t survived, size_t promoted, bool is_survivor_overflow) const {
+  send_survivor_overflow_event(survived, promoted, is_survivor_overflow);
+}
+
 void OldGCTracer::report_gc_end_impl(const Ticks& timestamp, TimePartitions* time_partitions) {
   GCTracer::report_gc_end_impl(timestamp, time_partitions);
   send_old_gc_event();

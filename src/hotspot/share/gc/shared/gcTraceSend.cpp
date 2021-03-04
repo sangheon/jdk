@@ -144,6 +144,18 @@ void YoungGCTracer::send_promotion_outside_plab_event(Klass* klass, size_t obj_s
   }
 }
 
+void YoungGCTracer::send_survivor_overflow_event(size_t survived, size_t promoted, bool is_survivor_overflow) const {
+
+  EventSurvivorOverflow event;
+  if (event.should_commit()) {
+    event.set_gcId(GCId::current());
+    event.set_survived(survived);
+    event.set_promoted(promoted);
+    event.set_overflowed(is_survivor_overflow);
+    event.commit();
+  }
+}
+
 void OldGCTracer::send_old_gc_event() const {
   EventOldGarbageCollection e(UNTIMED);
   if (e.should_commit()) {
