@@ -38,6 +38,7 @@
 #include "gc/g1/g1GCPhaseTimes.hpp"
 #include "gc/g1/g1Policy.hpp"
 #include "gc/g1/g1SurvivorRegions.hpp"
+#include "gc/g1/g1Trace.hpp"
 #include "gc/g1/g1YoungGenSizer.hpp"
 #include "gc/g1/heapRegion.inline.hpp"
 #include "gc/g1/heapRegionRemSet.hpp"
@@ -824,6 +825,8 @@ void G1Policy::record_collection_pause_end(double pause_time_ms, bool concurrent
 
   log_debug(gc, ergo, refine)("Concurrent refinement times: Logged Cards Scan time goal: %1.2fms Logged Cards Scan time: %1.2fms HCC time: %1.2fms",
                               scan_logged_cards_time_goal_ms, logged_cards_time, merge_hcc_time_ms);
+
+  _g1h->gc_tracer_stw()->report_logged_cards_time(scan_logged_cards_time_goal_ms, logged_cards_time);
 
   _g1h->concurrent_refine()->adjust(logged_cards_time,
                                     phase_times()->sum_thread_work_items(G1GCPhaseTimes::MergeLB, G1GCPhaseTimes::MergeLBDirtyCards),

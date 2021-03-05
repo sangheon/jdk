@@ -454,6 +454,10 @@
       <setting name="enabled" control="promotion-enabled">true</setting>
     </event>
 
+    <event name="jdk.G1LoggedCardsTime">
+      <setting name="enabled" control="promotion-enabled">true</setting>
+    </event>
+
     <event name="jdk.ConcurrentModeFailure">
       <setting name="enabled" control="gc-enabled-normal">true</setting>
     </event>

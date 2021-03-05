@@ -125,6 +125,11 @@ void G1NewTracer::report_adaptive_ihop_statistics(size_t threshold,
                                 prediction_active);
 }
 
+void G1NewTracer::report_logged_cards_time(double scan_logged_cards_time_goal_ms, 
+                                           double logged_cards_time) {
+  send_logged_cards_time(scan_logged_cards_time_goal_ms, logged_cards_time);
+}
+
 void G1NewTracer::send_g1_young_gc_event() {
   EventG1GarbageCollection e(UNTIMED);
   if (e.should_commit()) {
@@ -239,6 +244,17 @@ void G1NewTracer::send_adaptive_ihop_statistics(size_t threshold,
     evt.set_predictedAllocationRate(predicted_allocation_rate);
     evt.set_predictedMarkingDuration(predicted_marking_length * MILLIUNITS);
     evt.set_predictionActive(prediction_active);
+    evt.commit();
+  }
+}
+
+void G1NewTracer::send_logged_cards_time(double scan_logged_cards_time_goal_ms, 
+                                         double logged_cards_time) {
+  EventG1LoggedCardsTime evt;
+  if (evt.should_commit()) {
+    evt.set_gcId(GCId::current());
+    evt.set_scanLoggedCardsTimeGoalMS(scan_logged_cards_time_goal_ms);
+    evt.set_loggedCardsTimeMS(logged_cards_time);
     evt.commit();
   }
 }

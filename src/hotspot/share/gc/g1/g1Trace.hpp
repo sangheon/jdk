@@ -69,6 +69,9 @@ public:
                                        double predicted_allocation_rate,
                                        double predicted_marking_length,
                                        bool prediction_active);
+
+  void report_logged_cards_time(double scan_logged_cards_time_goal_ms, 
+                                double logged_cards_time);
 private:
   void send_g1_young_gc_event();
   void send_evacuation_info_event(G1EvacuationInfo* info);
@@ -90,6 +93,9 @@ private:
                                      double predicted_allocation_rate,
                                      double predicted_marking_length,
                                      bool prediction_active);
+
+  void send_logged_cards_time(double scan_logged_cards_time_goal_ms, 
+                              double logged_cards_time);
 };
 
 class G1OldTracer : public OldGCTracer {
