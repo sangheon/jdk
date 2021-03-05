@@ -206,13 +206,13 @@
           "Raise a fatal VM exit out of memory failure in the event "       \
           " that heap expansion fails due to running out of swap.")         \
                                                                             \
-  product(uintx, G1MaxNewSizePercent, 60,                      \
+  product(uintx, G1MaxNewSizePercent, 60, EXPERIMENTAL,                     \
           "Percentage (0-100) of the heap size to use as default "          \
           " maximum young gen size.")                                       \
           range(0, 100)                                                     \
           constraint(G1MaxNewSizePercentConstraintFunc,AfterErgo)           \
                                                                             \
-  product(uintx, G1NewSizePercent, 5,                          \
+  product(uintx, G1NewSizePercent, 5, EXPERIMENTAL,                         \
           "Percentage (0-100) of the heap size to use as default "          \
           "minimum young gen size.")                                        \
           range(0, 100)                                                     \
