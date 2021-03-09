@@ -437,6 +437,15 @@
     <Field type="double" contentType="millis" name="loggedCardsTimeMS" label="Logged Cards Time in ms" description="Current spent time for scan cards" />
   </Event>
 
+  <Event name="G1RemsetCoarseningInfo
+  " category="Java Virtual Machine, GC, Detailed" label="G1 Remset Coarsening Information"
+    description="xxx."
+    thread="true" stackTrace="false" startTime="false">
+    <Field type="uint" name="gcId" label="GC Identifier" relation="GcId" description="Identifier signifying GC during which the object was promoted" />
+    <Field type="uint" name="totalCoarsening" label="Total remset coarsening" description="Total remset coarsening count" />
+    <Field type="uint" name="recentCoarsening" label="Recent remset coarsening" description="Recent remset coarsening count" />
+  </Event>
+
   <Event name="EvacuationFailed" category="Java Virtual Machine, GC, Detailed" label="Evacuation Failed" startTime="false" description="Evacuation of an object failed">
     <Field type="uint" name="gcId" label="GC Identifier" relation="GcId" />
     <Field type="CopyFailed" struct="true" name="evacuationFailed" label="Evacuation Failed Data" />

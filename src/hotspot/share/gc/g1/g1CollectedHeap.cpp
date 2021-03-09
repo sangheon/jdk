@@ -2605,6 +2605,15 @@ void G1CollectedHeap::gc_epilogue(bool full) {
   // Print NUMA statistics.
   _numa->print_statistics();
 
+  {
+    static int prev_num_of_coarsening = 0;
+    int diff = HeapRegionRemSet::n_coarsenings() - prev_num_of_coarsening;
+    if (diff > 0) {
+      prev_num_of_coarsening = diff;
+      gc_tracer_stw()->report_remset_coarsening_info(HeapRegionRemSet::n_coarsenings(), prev_num_of_coarsening);
+    }
+  }
+
   _collection_pause_end = Ticks::now();
 }
 
@@ -3463,7 +3472,7 @@ void G1CollectedHeap::process_discovered_references(G1ParScanThreadStateSet* per
                                               pt);
   }
 
-  _gc_tracer_stw->report_gc_reference_stats(stats);
+  _gc_tracer_stw->report_gc_reference_stats(stats, pt._total_time_ms);
 
   // We have completed copying any necessary live referent objects.
   assert(pss->queue_is_empty(), "both queue and overflow should be empty");

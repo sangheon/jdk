@@ -130,6 +130,10 @@ void G1NewTracer::report_logged_cards_time(double scan_logged_cards_time_goal_ms
   send_logged_cards_time(scan_logged_cards_time_goal_ms, logged_cards_time);
 }
 
+void G1NewTracer::report_remset_coarsening_info(int total_coarsening, int recent_coarsening) {
+  send_remset_coarsening_info(total_coarsening, recent_coarsening);
+}
+
 void G1NewTracer::send_g1_young_gc_event() {
   EventG1GarbageCollection e(UNTIMED);
   if (e.should_commit()) {
@@ -255,6 +259,16 @@ void G1NewTracer::send_logged_cards_time(double scan_logged_cards_time_goal_ms,
     evt.set_gcId(GCId::current());
     evt.set_scanLoggedCardsTimeGoalMS(scan_logged_cards_time_goal_ms);
     evt.set_loggedCardsTimeMS(logged_cards_time);
+    evt.commit();
+  }
+}
+
+void G1NewTracer::send_remset_coarsening_info(int total_coarsening, int recent_coarsening) {
+  EventG1RemsetCoarseningInfo evt;
+  if (evt.should_commit()) {
+    evt.set_gcId(GCId::current());
+    evt.set_totalCoarsening(total_coarsening);
+    evt.set_recentCoarsening(recent_coarsening);
     evt.commit();
   }
 }

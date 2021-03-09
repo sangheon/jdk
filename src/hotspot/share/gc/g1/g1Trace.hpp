@@ -72,6 +72,9 @@ public:
 
   void report_logged_cards_time(double scan_logged_cards_time_goal_ms, 
                                 double logged_cards_time);
+
+  void report_remset_coarsening_info(int total_coarsening, int recent_coarsening);
+
 private:
   void send_g1_young_gc_event();
   void send_evacuation_info_event(G1EvacuationInfo* info);
@@ -96,6 +99,8 @@ private:
 
   void send_logged_cards_time(double scan_logged_cards_time_goal_ms, 
                               double logged_cards_time);
+
+  void send_remset_coarsening_info(int total_coarsening, int recent_coarsening);
 };
 
 class G1OldTracer : public OldGCTracer {
