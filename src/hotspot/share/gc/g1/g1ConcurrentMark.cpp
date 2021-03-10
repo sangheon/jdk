@@ -1598,6 +1598,7 @@ void G1ConcurrentMark::weak_refs_work(bool clear_all_soft_refs) {
                                           executor,
                                           &pt);
     _gc_tracer_cm->report_gc_reference_stats(stats);
+    _gc_tracer_cm->report_gc_reference_process_time(pt.total_time_ms());
     pt.print_all_references();
 
     // The do_oop work routines of the keep_alive and drain_marking_stack

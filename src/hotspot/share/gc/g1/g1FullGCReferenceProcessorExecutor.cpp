@@ -97,6 +97,7 @@ void G1FullGCReferenceProcessingExecutor::execute(STWGCTimer* timer, G1FullGCTra
                                                           &pt);
 
   tracer->report_gc_reference_stats(stats);
+  tracer->report_gc_reference_process_time(pt.total_time_ms());
   pt.print_all_references();
 
   assert(marker->oop_stack()->is_empty(), "Should be no oops on the stack");

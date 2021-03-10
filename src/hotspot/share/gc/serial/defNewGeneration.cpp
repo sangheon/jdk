@@ -597,6 +597,7 @@ void DefNewGeneration::collect(bool   full,
   rp->process_discovered_references(&is_alive, &keep_alive, &evacuate_followers,
                                     NULL, &pt);
   gc_tracer.report_gc_reference_stats(stats);
+  gc_tracer.report_gc_reference_process_time(pt.total_time_ms());
   gc_tracer.report_tenuring_threshold(tenuring_threshold());
   pt.print_all_references();
 

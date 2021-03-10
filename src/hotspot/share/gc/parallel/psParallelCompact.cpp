@@ -2179,6 +2179,7 @@ void PSParallelCompact::marking_phase(ParCompactionManager* cm,
     }
 
     gc_tracer->report_gc_reference_stats(stats);
+    gc_tracer->report_gc_reference_process_time(pt.total_time_ms());
     pt.print_all_references();
   }
 
