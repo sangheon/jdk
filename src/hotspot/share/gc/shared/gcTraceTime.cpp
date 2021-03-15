@@ -25,6 +25,7 @@
 #include "precompiled.hpp"
 #include "gc/shared/collectedHeap.hpp"
 #include "gc/shared/gcTraceTime.inline.hpp"
+#include "gc/shared/gcTrace.hpp"
 #include "logging/log.hpp"
 #include "logging/logStream.hpp"
 #include "memory/universe.hpp"
@@ -70,11 +71,14 @@ void GCTraceTimeLoggerImpl::log_end(Ticks end) {
   out.print_cr(" %.3fms", duration_in_ms);
 }
 
-GCTraceCPUTime::GCTraceCPUTime() :
+GCTraceCPUTime::GCTraceCPUTime() { GCTraceCPUTime(NULL); }
+
+GCTraceCPUTime::GCTraceCPUTime(GCTracer* gc_tracer) :
   _active(log_is_enabled(Info, gc, cpu)),
   _starting_user_time(0.0),
   _starting_system_time(0.0),
-  _starting_real_time(0.0)
+  _starting_real_time(0.0),
+  _gc_tracer(gc_tracer)
 {
   if (_active) {
     bool valid = os::getTimesSecs(&_starting_real_time,
@@ -96,6 +100,11 @@ GCTraceCPUTime::~GCTraceCPUTime() {
                         user_time - _starting_user_time,
                         system_time - _starting_system_time,
                         real_time - _starting_real_time);
+      if (_gc_tracer != NULL) {
+        _gc_tracer->report_cpu_time(user_time - _starting_user_time,
+                                    system_time - _starting_system_time,
+                                    real_time - _starting_real_time);
+      }
     } else {
       log_warning(gc, cpu)("TraceCPUTime: os::getTimesSecs() returned invalid result");
     }

@@ -34,7 +34,7 @@ G1FullGCScope::G1FullGCScope(G1MonitoringSupport* monitoring_support, bool expli
     _timer(),
     _tracer(),
     _active(),
-    _cpu_time(),
+    _cpu_time(&_tracer),
     _soft_refs(clear_soft, _g1h->soft_ref_policy()),
     _monitoring_scope(monitoring_support, true /* full_gc */, true /* all_memory_pools_affected */),
     _heap_transition(_g1h) {

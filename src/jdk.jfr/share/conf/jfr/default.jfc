@@ -409,6 +409,10 @@
       <setting name="enabled" control="gc-enabled-normal">true</setting>
     </event>
     
+    <event name="jdk.GCCPUTime">
+      <setting name="enabled" control="gc-enabled-normal">true</setting>
+    </event>
+
     <event name="jdk.PromotionFailed">
       <setting name="enabled" control="gc-enabled-normal">true</setting>
     </event>

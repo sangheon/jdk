@@ -103,6 +103,7 @@ class GCTracer : public ResourceObj {
   void report_gc_reference_stats(const ReferenceProcessorStats& rp) const;
   void report_gc_reference_process_time(const double total_time) const;
   void report_object_count_after_gc(BoolObjectClosure* object_filter) NOT_SERVICES_RETURN;
+  void report_cpu_time(double user_time, double system_time, double real_time) const;
 
  protected:
   GCTracer(GCName name) : _shared_gc_info(name) {}
@@ -117,6 +118,7 @@ class GCTracer : public ResourceObj {
   void send_reference_stats_event(ReferenceType type, size_t count) const;
   void send_reference_process_time_event(const double total_time) const;
   void send_phase_events(TimePartitions* time_partitions) const;
+  void send_cpu_time(double user_time, double system_time, double real_time) const;
 };
 
 class YoungGCTracer : public GCTracer {

@@ -2939,7 +2939,7 @@ void G1CollectedHeap::do_collection_pause_at_safepoint_helper(double target_paus
 
     _gc_tracer_stw->report_yc_type(collector_state()->yc_type());
 
-    GCTraceCPUTime tcpu;
+    GCTraceCPUTime tcpu(_gc_tracer_stw);
 
     GCTraceTime(Info, gc) tm(young_gc_name(), NULL, gc_cause(), true);
 

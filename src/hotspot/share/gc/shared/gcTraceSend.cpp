@@ -69,6 +69,17 @@ void GCTracer::send_reference_process_time_event(const double total_time) const 
   }
 }
 
+void GCTracer::send_cpu_time(double user_time, double system_time, double real_time) const {
+  EventGCCPUTime e;
+  if (e.should_commit()) {
+      e.set_gcId(GCId::current());
+      e.set_userTime(user_time);
+      e.set_systemTime(system_time);
+      e.set_realTime(real_time);
+      e.commit();
+  }
+}
+
 void GCTracer::send_metaspace_chunk_free_list_summary(GCWhen::Type when, Metaspace::MetadataType mdtype,
                                                       const MetaspaceChunkFreeListSummary& summary) const {
   EventMetaspaceChunkFreeListSummary e;
